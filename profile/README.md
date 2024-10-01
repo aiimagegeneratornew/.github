@@ -8,6 +8,9 @@ https://run3.blog/
 
 https://lesson1.guru/
 
+<hr>
+<img src="https://cookieclicker.blog/files/image/cookie-clicker.png" alt="Cookie Clicker" />
+
 # Introduction: A Simple Game with Surprising Depth**
 
 In 2013, a seemingly simple web-based game, *Cookie Clicker*, took the internet by storm. Created by French developer Julien Thiennot (known as Orteil), *Cookie Clicker* quickly grew from a novelty into a cultural phenomenon, captivating millions of players worldwide. At first glance, the game’s premise seems almost absurdly simplistic: you click a large cookie on the screen to earn more cookies. But beneath this surface lies a surprisingly complex and addictive experience that blends incremental gameplay mechanics with deep strategy, humor, and an ever-expanding universe of upgrades and achievements. This article explores the history, gameplay, psychology, and cultural impact of *Cookie Clicker*, a game that has redefined what a “casual” game can be.
