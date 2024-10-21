@@ -1,8 +1,8 @@
 # Cookie Clicker Unblocked 76
 
-https://cookieclicker.blog/
+[https://cookieclicker.blog/](https://cookieclickerunblocked.cc/)
 
-https://retrobowl-2.github.io/
+https://retrobowl-2.github.io/https://cookieclickerunblocked.top/
 
 https://run3.blog/
 
