@@ -4,7 +4,7 @@ https://cookieclicker.blog/
 
 https://retrobowl-2.github.io/
 
-https://run3.blog/
+https://3run.blog/
 
 https://lesson1.guru/
 
