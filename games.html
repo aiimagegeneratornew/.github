@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Games</title>
+    <style>
+        :root {
+            --primary-color: #2d1faf;
+            --secondary-color: #4937ca;
+            --accent-color: #6366f1;
+            --background-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --shadow-color: rgba(99, 102, 241, 0.15);
+            --gradient-start: #2d1faf;
+            --gradient-end: #6366f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background: var(--background-color);
+            background-image: 
+                radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.1) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(45, 31, 175, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 0%, 
+                rgba(255,255,255,0.05) 100%);
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #fff, rgba(255,255,255,0.8));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stats-bar {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .stat-item:last-child::after {
+            display: none;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, rgba(255,255,255,0.9));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 25px;
+            padding: 10px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 40px var(--shadow-color);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .game-thumbnail {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .game-card:hover .game-thumbnail {
+            transform: scale(1.08);
+        }
+
+        .game-title {
+            padding: 1rem;
+            text-align: center;
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(99, 102, 241, 0.1);
+        }
+
+        .game-meta {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 0%, 
+                rgba(255,255,255,0.05) 100%);
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            opacity: 0.9;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1600px) {
+            .games-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .games-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+            header h1 {
+                font-size: 2.5rem;
+            }
+            .stat-item::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+                padding: 0 20px;
+            }
+            .stats-bar {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            header {
+                padding: 2rem 1rem;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            .stat-number {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Latest Games</h1>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-number">1,234</div>
+                    <div class="stat-label">Total Games</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5.2M</div>
+                    <div class="stat-label">Active Players</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="games-grid">
+            <!-- Cookie Clicker -->
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.9</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Cookie+Clicker" alt="Cookie Clicker" class="game-thumbnail">
+                <div class="game-title">Cookie Clicker</div>
+            </a>
+
+            <!-- Minecraft Builder -->
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.8</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Minecraft" alt="Minecraft Builder" class="game-thumbnail">
+                <div class="game-title">Minecraft Builder</div>
+            </a>
+
+            <!-- Donkey Kong -->
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.7</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Donkey+Kong" alt="Donkey Kong" class="game-thumbnail">
+                <div class="game-title">Donkey Kong</div>
+            </a>
+
+            <!-- Cat Escape -->
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.9</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Cat+Escape" alt="Cat Escape" class="game-thumbnail">
+                <div class="game-title">Cat Escape</div>
+            </a>
+
+            <!-- Squid Game -->
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.8</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Squid+Game" alt="Squid Game" class="game-thumbnail">
+                <div class="game-title">Squid Game Season 2</div>
+            </a>
+
+            <!-- Santa Games -->
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.6</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Santa+Games" alt="Santa Games" class="game-thumbnail">
+                <div class="game-title">Santa Games</div>
+            </a>
+
+            <!-- More game cards -->
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.7</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Game+7" alt="Game 7" class="game-thumbnail">
+                <div class="game-title">Game 7</div>
+            </a>
+
+            <a href="#" class="game-card">
+                <div class="game-meta">★ 4.8</div>
+                <img src="https://placehold.co/400x400/2d1faf/ffffff/png?text=Game+8" alt="Game 8" class="game-thumbnail">
+                <div class="game-title">Game 8</div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms-of-use">Terms of Use</a>
+                <a href="/sitemap">Sitemap</a>
+                <a href="newgame.html">new game</a>
+            </div>
+            <div class="copyright">
+                © 2024 Cookie Clicker Unblocked - Free Online Click on Cookie Game
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
