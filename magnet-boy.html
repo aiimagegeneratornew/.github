@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnet Boy Game - Physics-Based Puzzle Adventure with Magnetic Powers</title>
+    <meta name="keywords" content="magnet boy game, magnetic puzzle platformer, physics-based games, magnetic powers game, puzzle adventure game">
+    <meta name="description" content="Play Magnet Boy Game - An innovative physics-based puzzle platformer where you use magnetic powers to overcome challenges. Experience unique gameplay mechanics and challenging levels.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #6366f1;
+            --accent-color: #818cf8;
+            --background-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --shadow-color: rgba(79, 70, 229, 0.1);
+            --gradient-start: #4f46e5;
+            --gradient-end: #818cf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--background-color);
+            background-image: 
+                radial-gradient(at 40% 20%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, rgba(129, 140, 248, 0.05) 0px, transparent 50%);
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--gradient-end);
+        }
+
+        .game-container {
+            background: #000000;
+            border-radius: 24px;
+            padding: 0;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+            overflow: hidden;
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 0;
+            margin-bottom: 0;
+            display: block;
+            background: #000000;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            margin: 3rem 0;
+            border-radius: 24px;
+            box-shadow: 0 12px 36px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, rgba(255,255,255,0.9));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 500;
+        }
+
+        .game-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px var(--shadow-color);
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 4rem 0 3rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px var(--shadow-color);
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .level-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(79, 70, 229, 0.1);
+        }
+
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px var(--shadow-color);
+            border-color: rgba(79, 70, 229, 0.2);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 3rem;
+            box-shadow: 0 8px 24px var(--shadow-color);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px var(--shadow-color);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-top: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            opacity: 0.9;
+            padding: 5px 0;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 1.5rem;
+            }
+            .game-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            h1 {
+                font-size: 3rem;
+            }
+            h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .level-grid {
+                grid-template-columns: 1fr;
+            }
+            .game-frame {
+                height: 400px;
+            }
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+            .stat-number {
+                font-size: 2.4rem;
+            }
+            .stat-label {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/">Home</a>
+            <span class="separator">›</span>
+            <a href="/games">Games</a>
+
+            <span class="separator">›</span>
+            <span class="current">Magnet Boy Game</span>
+        </nav>
+
+        <div id="game-container" class="game-container">
+            <iframe src="https://game263199.konggames.com/gamez/0026/3199/live/index.html" class="game-frame" title="Play Magnet Boy Game Online"></iframe>
+        </div>
+
+        <header>
+            <h1>Magnet Boy Game</h1>
+            <p>Master the Power of Magnetism in this Physics-Based Puzzle Adventure</p>
+        </header>
+
+        <div class="game-stats">
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Challenging Levels</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1M+</div>
+                <div class="stat-label">Players Worldwide</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4.8</div>
+                <div class="stat-label">Player Rating</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Positive Reviews</div>
+            </div>
+        </div>
+
+        <h2>Experience the Magnetic Adventure</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🧲</div>
+                <h3>Magnetic Powers</h3>
+                <p>Control magnetic forces to solve intricate puzzles and navigate through challenging obstacles. The Magnet Boy game introduces unique gameplay mechanics that revolutionize the platformer genre.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>Intuitive Controls</h3>
+                <p>Master easy-to-learn but hard-to-master controls that make the Magnet Boy game accessible to players of all skill levels while providing deep gameplay mechanics.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧩</div>
+                <h3>Physics-Based Puzzles</h3>
+                <p>Engage with realistic physics simulations that make every level in the Magnet Boy game a unique challenge requiring both strategic thinking and precise timing.</p>
+            </div>
+        </div>
+
+        <div class="gameplay-section">
+            <h2>Master the Magnetic Mechanics</h2>
+            <div class="level-grid">
+                <div class="level-card">
+                    <h3>Magnetic Attraction</h3>
+                    <p>In the Magnet Boy game, players can attract themselves to magnetic surfaces and objects, creating dynamic movement possibilities and innovative puzzle solutions. This core mechanic opens up countless strategic approaches to level completion.</p>
+                </div>
+                <div class="level-card">
+                    <h3>Magnetic Repulsion</h3>
+                    <p>Master the art of repulsion in the Magnet Boy game to launch yourself across gaps, avoid hazards, and manipulate objects from a distance. This dual-polarity system adds depth to every challenge you face.</p>
+                </div>
+                <div class="level-card">
+                    <h3>Environmental Interaction</h3>
+                    <p>The Magnet Boy game features a rich variety of magnetic and non-magnetic elements in each level, requiring players to carefully observe and interact with their surroundings to progress.</p>
+                </div>
+                <div class="level-card">
+                    <h3>Progressive Difficulty</h3>
+                    <p>Experience a perfectly balanced difficulty curve as you advance through the Magnet Boy game, with each level introducing new concepts while building upon previously learned skills.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2>Why Players Love Magnet Boy Game</h2>
+        <p>The Magnet Boy game stands out in the physics-based puzzle platformer genre through its innovative use of magnetic mechanics. Players worldwide have praised its unique approach to level design, combining traditional platforming challenges with magnetic manipulation puzzles. The game's success lies in its ability to create complex, satisfying puzzles while maintaining an accessible and enjoyable experience for players of all skill levels.</p>
+
+        <p>Each level in the Magnet Boy game has been carefully crafted to provide a perfect balance of challenge and achievement. The magnetic powers at your disposal offer unprecedented freedom in how you approach obstacles, making every playthrough unique. Whether you're a casual gamer or a hardcore puzzle enthusiast, the Magnet Boy game offers an engaging experience that will keep you coming back for more.</p>
+
+        <div style="text-align: center;">
+            <a href="#game-container" class="cta-button" onclick="document.getElementById('game-container').scrollIntoView({behavior: 'smooth'})">Play Magnet Boy Now</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/privacy-policy">Privacy Policy</a>
+                <a href="/terms-of-use">Terms of Use</a>
+                <a href="/sitemap">Sitemap</a>
+            </div>
+            <div class="copyright">
+                © 2024 Magnet Boy Game - Free Online Physics Puzzle Game
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
