@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Find the Vampire - An immersive hidden object mystery game. Search for vampires in atmospheric locations, solve puzzles, and uncover dark secrets in this thrilling adventure.">
+    <title>Find the Vampire | Atmospheric Hidden Object Mystery Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #1e1f26;
+            --secondary-color: #8b0000;
+            --accent-color: #d4af37;
+            --text-color: #1e1f26;
+            --bg-color: #0a0a0f;
+            --nav-bg: #1e1f26;
+            --card-bg: #1a1b22;
+            --gradient-1: linear-gradient(135deg, #8b0000, #2c0000);
+            --gradient-2: linear-gradient(135deg, #1e1f26, #8b0000);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            line-height: 1.6;
+            color: #e1e1e1;
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 60%),
+                linear-gradient(0deg, var(--bg-color) 0%, var(--nav-bg) 100%);
+            min-height: 100vh;
+        }
+
+        .nav-top {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #e1e1e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            margin: 2rem auto;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 12px;
+            margin: 1rem 0;
+            loading: lazy;
+            box-shadow: var(--shadow-sm);
+        }
+
+        header {
+            background: var(--gradient-2);
+            color: #e1e1e1;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            margin: 2rem 0;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="rgba(139,0,0,0.1)" x="0" y="0" width="100" height="100"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .content-section {
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1, h2, h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #a0aec0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(26, 27, 34, 0.8);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--secondary-color);
+        }
+
+        .feature-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .feature-card h3::before {
+            content: '🦇';
+            font-size: 1.2em;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--gradient-1);
+            color: #e1e1e1;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            color: var(--accent-color);
+        }
+
+        .footer-nav {
+            background: var(--nav-bg);
+            color: #e1e1e1;
+            padding: 4rem 0 0;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 1.5px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links a::before {
+            content: '→';
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.3);
+            color: #a0aec0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .game-container {
+                padding: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-top">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Unblocked Games</a>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/newgame.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="game-container">
+            <iframe src="https://app-391990.games.s3.yandex.net/391990/ykcah5zg3ahs44f0v8c2fclzf3e4tfrm/index.html" class="game-frame" title="Find the Vampire Game" loading="lazy" sandbox="allow-scripts allow-same-origin" allow="fullscreen"></iframe>
+        </div>
+
+        <header>
+            <div class="container">
+                <h1 class="floating glow">Find the Vampire</h1>
+                <p>Embark on a Thrilling Hunt Through Dark and Mysterious Realms</p>
+            </div>
+        </header>
+
+        <section class="content-section">
+            <h2>Welcome to Find the Vampire</h2>
+            <p>Immerse yourself in the atmospheric world of Find the Vampire, where every shadow could conceal an immortal being. This captivating hidden object game challenges your perception and tests your courage as you hunt through gothic locations in search of elusive vampires hiding in plain sight.</p>
+
+            <div class="stats-container">
+                <div class="stat-card floating">
+                    <div class="stat-number">50+</div>
+                    <div>Unique Locations</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">100+</div>
+                    <div>Hidden Vampires</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">1M+</div>
+                    <div>Daily Players</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Atmospheric Environments</h3>
+                    <p>Explore haunting castles, misty graveyards, and ancient crypts as you search for vampires lurking in the shadows. Each location is meticulously designed with gothic details and eerie ambiance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Challenging Puzzles</h3>
+                    <p>Test your observation skills with intricate puzzles and cleverly hidden vampires. Use various tools and abilities to reveal their hiding spots and progress through increasingly difficult levels.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Vampire Lore</h3>
+                    <p>Discover rich vampire mythology as you progress through the game. Each vampire you find reveals new stories and secrets about their ancient supernatural world.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Why Play Find the Vampire?</h2>
+            <p>Find the Vampire offers an immersive experience that combines the thrill of hidden object gameplay with the atmospheric tension of vampire mythology. Whether you're a fan of horror games or enjoy challenging puzzles, this game provides endless entertainment.</p>
+            
+            <h3>Advanced Game Mechanics</h3>
+            <p>The game features sophisticated detection mechanics and dynamic environments that react to your actions. Each vampire has unique hiding patterns and abilities, making every search a new challenge. Use your detective skills and supernatural tools to track them down.</p>
+
+            <h3>Progressive Difficulty</h3>
+            <p>As you advance through Find the Vampire, you'll encounter increasingly clever vampires and more complex hiding spots. The game adapts to your skill level, ensuring a perfect balance of challenge and achievement.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Tips for Vampire Hunters</h2>
+            <p>Master the art of vampire hunting with these essential strategies:</p>
+            <ul>
+                <li>Pay attention to subtle environmental clues that might reveal a vampire's presence</li>
+                <li>Use your supernatural detection tools wisely to conserve energy</li>
+                <li>Learn the different types of vampires and their preferred hiding spots</li>
+                <li>Watch for disturbances in the environment that could indicate vampire activity</li>
+                <li>Complete optional challenges to unlock powerful new abilities</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>Join the Hunt</h2>
+            <p>Become part of our growing community of vampire hunters. Share your discoveries, compare strategies, and compete for top rankings on our global leaderboards. With regular updates adding new locations and vampires to find, the hunt never ends.</p>
+        </section>
+    </main>
+
+    <footer class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="About.html">About</a>
+                    <a href="Privacy.html">Privacy Policy</a>
+                    <a href="Policy.html">Terms of Use</a>
+                    <a href="sitemap.xml">Sitemap</a>
+                    <a href="newgame.html">New Games</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Unblocked Games. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
