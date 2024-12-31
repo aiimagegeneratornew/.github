@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stickman Fighter Unblocked | Epic Stick Figure Combat Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Stickman Fighter Unblocked - Experience intense stick figure combat in this action-packed fighting game. Master various fighting styles and challenge opponents in epic battles.">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #2d3436;
+            --secondary-color: #00b894;
+            --accent-color: #0984e3;
+            --text-color: #2d3436;
+            --bg-color: #f5f6fa;
+            --nav-bg: #2d3436;
+            --card-bg: #ffffff;
+            --gradient-1: linear-gradient(135deg, #00b894, #00cec9);
+            --gradient-2: linear-gradient(135deg, #0984e3, #00b894);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .nav-top {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-menu a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+        }
+
+        header {
+            background: var(--gradient-2);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.1)" x="0" y="0" width="100" height="100"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            margin: 2rem auto;
+            transform: translateY(-50px);
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 12px;
+            margin: 1rem 0;
+            loading: lazy;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .content-section {
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #636e72;
+            font-size: 1.05rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--secondary-color);
+        }
+
+        .feature-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .feature-card h3::before {
+            content: '🎮';
+            font-size: 1.2em;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--gradient-1);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #636e72;
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+
+        .footer-nav {
+            background: var(--nav-bg);
+            color: white;
+            padding: 4rem 0 0;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 1.5px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links a::before {
+            content: '→';
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.2);
+            color: #a0aec0;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .game-container {
+                padding: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-top">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Unblocked Games</a>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/newgame.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                <li><a href="stickman-fighter-unblocked.html"><i class="fas fa-fist-raised"></i> Stick Fighter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="game-container" style="transform: translateY(0);">
+            <iframe src="https://vodogame.com/games/stick-fighter-unblocked/" class="game-frame" title="Stickman Fighter Unblocked Game" loading="lazy"></iframe>
+        </div>
+
+        <header style="margin: 2rem 0; border-radius: 16px; overflow: hidden;">
+            <div class="container">
+                <h1 class="floating">Stickman Fighter Unblocked</h1>
+                <p>Experience the Ultimate Stick Figure Combat Adventure</p>
+            </div>
+        </header>
+
+        <section class="content-section">
+            <h2>Welcome to Stickman Fighter Unblocked</h2>
+            <p>Dive into the thrilling world of stick figure combat with our unblocked version of Stickman Fighter. This action-packed fighting game combines intense battles, strategic gameplay, and fluid animations to deliver an unforgettable gaming experience. Whether you're a casual gamer or a fighting game enthusiast, Stickman Fighter Unblocked offers endless hours of entertainment.</p>
+
+            <div class="stats-container">
+                <div class="stat-card floating">
+                    <div class="stat-number">50+</div>
+                    <div>Unique Moves</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">20+</div>
+                    <div>Fighting Styles</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">1M+</div>
+                    <div>Daily Players</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Dynamic Combat System</h3>
+                    <p>Master an extensive array of combat moves, including punches, kicks, special attacks, and devastating combos in this stickman fighting game.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multiple Game Modes</h3>
+                    <p>Challenge yourself in various modes including Story Mode, Arcade Mode, and Multiplayer battles in this unblocked fighting experience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Character Customization</h3>
+                    <p>Personalize your stickman fighter with unique abilities, costumes, and fighting styles to create your perfect combat warrior.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Why Choose Stickman Fighter Unblocked?</h2>
+            <p>Stickman Fighter Unblocked stands out as a premier fighting game that combines accessibility with depth. The game's intuitive controls make it easy to pick up, while the complex combo system and various fighting techniques provide endless opportunities for mastery. Unlike other fighting games, our unblocked version ensures you can enjoy the action anywhere, anytime.</p>
+            
+            <h3>Advanced Combat Mechanics</h3>
+            <p>The game features a sophisticated combat system that rewards skill and strategy. Each stickman fighter possesses unique abilities and fighting styles, allowing players to develop their own combat strategies. From quick jabs to elaborate combo chains, the possibilities for creative combat are endless.</p>
+
+            <h3>Progressive Difficulty System</h3>
+            <p>As you advance through the game, you'll face increasingly challenging opponents. Each victory unlocks new moves and abilities, allowing you to expand your combat repertoire. The progressive difficulty ensures that both newcomers and veteran players find the perfect level of challenge.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Tips for Success</h2>
+            <p>To excel in Stickman Fighter Unblocked, consider these essential strategies:</p>
+            <ul>
+                <li>Master the basic moves before attempting complex combinations</li>
+                <li>Study your opponent's patterns and develop counter-strategies</li>
+                <li>Utilize the training mode to perfect your timing and execution</li>
+                <li>Experiment with different fighting styles to find your perfect match</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>Community and Competition</h2>
+            <p>Join our growing community of stickman fighting enthusiasts. Participate in daily tournaments, share strategies, and compete for top rankings. The game's multiplayer mode lets you test your skills against players from around the world, making every match a unique and exciting experience.</p>
+        </section>
+    </main>
+
+    <footer class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="About.html">About</a>
+                    <a href="Privacy.html">Privacy Policy</a>
+                    <a href="Policy.html">Terms of Use</a>
+                    <a href="sitemap.xml">Sitemap</a>
+                    <a href="newgame.html">New Games</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Unblocked Games. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
