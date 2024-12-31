@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play New Year Solitaire - A festive twist on classic solitaire card game. Enjoy beautiful holiday-themed cards and relaxing gameplay perfect for celebrating the new year.">
+    <title>New Year Solitaire | Festive Card Game for Holiday Season</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #2C3A47;
+            --secondary-color: #e74c3c;
+            --accent-color: #f1c40f;
+            --text-color: #2d3436;
+            --bg-color: #f5f6fa;
+            --nav-bg: #2C3A47;
+            --card-bg: #ffffff;
+            --gradient-1: linear-gradient(135deg, #e74c3c, #f1c40f);
+            --gradient-2: linear-gradient(135deg, #2C3A47, #e74c3c);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .nav-top {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-menu a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            margin: 2rem auto;
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 12px;
+            margin: 1rem 0;
+            loading: lazy;
+            box-shadow: var(--shadow-sm);
+        }
+
+        header {
+            background: var(--gradient-2);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.1)" x="0" y="0" width="100" height="100"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .content-section {
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #636e72;
+            font-size: 1.05rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--secondary-color);
+        }
+
+        .feature-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .feature-card h3::before {
+            content: '🎴';
+            font-size: 1.2em;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--gradient-1);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-nav {
+            background: var(--nav-bg);
+            color: white;
+            padding: 4rem 0 0;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 1.5px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-links a::before {
+            content: '→';
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.2);
+            color: #a0aec0;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .game-container {
+                padding: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-top">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Unblocked Games</a>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/newgame.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                <li><a href="/new-year-solitaire.html"><i class="fas fa-cards"></i>New Year Solitaire</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="game-container">
+            <iframe src="https://game.h5onlinegames.com/amazingsolitaire/v1/index.html" class="game-frame" title="New Year Solitaire Game" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+        </div>
+
+        <header>
+            <div class="container">
+                <h1 class="floating">New Year Solitaire</h1>
+                <p>Celebrate the Holiday Season with a Festive Card Game Experience</p>
+            </div>
+        </header>
+
+        <section class="content-section">
+            <h2>Welcome to New Year Solitaire</h2>
+            <p>Ring in the new year with our festive New Year Solitaire game, a delightful twist on the classic card game you know and love. This holiday-themed solitaire experience combines traditional gameplay with festive decorations and special New Year elements, creating the perfect gaming atmosphere for the holiday season.</p>
+
+            <div class="stats-container">
+                <div class="stat-card floating">
+                    <div class="stat-number">100+</div>
+                    <div>Unique Layouts</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">1M+</div>
+                    <div>Daily Players</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">99%</div>
+                    <div>Solvable Games</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Special Features of New Year Solitaire</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Festive Card Designs</h3>
+                    <p>Experience New Year Solitaire with beautifully designed holiday-themed cards featuring festive decorations, fireworks, and celebratory motifs that bring the spirit of the new year to every game.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multiple Game Modes</h3>
+                    <p>Choose from various New Year Solitaire variants, including Classic Draw-1, Draw-3, and special holiday challenge modes that test your card-playing skills in unique ways.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Holiday Celebrations</h3>
+                    <p>Enjoy special animations and effects in our New Year Solitaire game when you complete levels or achieve winning streaks, complete with virtual fireworks and festive celebrations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Why Choose New Year Solitaire?</h2>
+            <p>Our New Year Solitaire game offers a perfect blend of traditional solitaire gameplay and festive holiday spirit. Whether you're a seasoned solitaire player or new to card games, this holiday version provides an engaging and relaxing experience perfect for the new year season.</p>
+            
+            <h3>Enhanced Gameplay Features</h3>
+            <p>New Year Solitaire includes advanced features such as auto-complete, move suggestions, and undo options, making it accessible for players of all skill levels. The game's intuitive interface and smooth animations create an enjoyable card-playing experience that keeps you coming back for more.</p>
+
+            <h3>Holiday Themed Challenges</h3>
+            <p>Take on special New Year Solitaire challenges designed to test your strategic thinking and card management skills. Complete daily objectives to earn festive rewards and unlock special holiday-themed card designs that make your solitaire experience even more magical.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Tips for New Year Solitaire Success</h2>
+            <p>Master New Year Solitaire with these essential strategies:</p>
+            <ul>
+                <li>Always reveal face-down cards whenever possible to increase your options</li>
+                <li>Keep color patterns in mind when moving cards between columns</li>
+                <li>Use the foundation piles strategically to free up needed cards</li>
+                <li>Take advantage of empty columns for temporary card storage</li>
+                <li>Plan several moves ahead to create longer sequences</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>Community and Achievements</h2>
+            <p>Join our growing community of New Year Solitaire enthusiasts. Compare scores on our global leaderboards, share strategies, and participate in special holiday events. Track your progress with detailed statistics and earn achievements as you master different aspects of the game.</p>
+        </section>
+    </main>
+
+    <footer class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="About.html">About</a>
+                    <a href="Privacy.html">Privacy Policy</a>
+                    <a href="Policy.html">Terms of Use</a>
+                    <a href="sitemap.xml">Sitemap</a>
+                    <a href="newgame.html">New Games</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Unblocked Games. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
