@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Survival Together - An immersive multiplayer survival game. Team up with friends, craft resources, build bases, and survive together in a challenging open world.">
+    <title>Survival Together | Multiplayer Survival Adventure Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #1a2f38;
+            --secondary-color: #2ecc71;
+            --accent-color: #f39c12;
+            --text-color: #2d3436;
+            --bg-color: #0f1923;
+            --nav-bg: #1a2f38;
+            --card-bg: #1c2833;
+            --gradient-1: linear-gradient(135deg, #2ecc71, #27ae60);
+            --gradient-2: linear-gradient(135deg, #1a2f38, #2ecc71);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #e1e1e1;
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(46, 204, 113, 0.1) 0%, transparent 60%),
+                linear-gradient(0deg, var(--bg-color) 0%, var(--nav-bg) 100%);
+            min-height: 100vh;
+        }
+
+        .nav-top {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            border-bottom: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: #e1e1e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a:hover {
+            background: var(--gradient-1);
+            transform: translateY(-2px);
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            margin: 2rem auto;
+            border: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 12px;
+            margin: 1rem 0;
+            loading: lazy;
+            box-shadow: var(--shadow-sm);
+        }
+
+        header {
+            background: var(--gradient-2);
+            color: #e1e1e1;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            margin: 2rem 0;
+            border: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="rgba(46,204,113,0.1)" x="0" y="0" width="100" height="100"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .content-section {
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1, h2, h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #a0aec0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(28, 40, 51, 0.8);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--secondary-color);
+        }
+
+        .feature-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .feature-card h3::before {
+            content: '🌲';
+            font-size: 1.2em;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--gradient-1);
+            color: #e1e1e1;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .footer-nav {
+            background: var(--nav-bg);
+            color: #e1e1e1;
+            padding: 4rem 0 0;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-1);
+            border-radius: 1.5px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #a0aec0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links a::before {
+            content: '→';
+            color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.3);
+            color: #a0aec0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(46, 204, 113, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .game-container {
+                padding: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-top">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Unblocked Games</a>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/newgame.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                <li><a href="/survival-games.html"><i class="fas fa-campground"></i> Survival</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="game-container">
+            <iframe src="https://games.crazygames.com/en_US/miniblox/index.html" class="game-frame" title="Survival Together Game" loading="lazy" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+
+        <header>
+            <div class="container">
+                <h1 class="floating glow">Survival Together</h1>
+                <p>Join Forces and Survive in an Epic Multiplayer Adventure</p>
+            </div>
+        </header>
+
+        <section class="content-section">
+            <h2>Welcome to Survival Together</h2>
+            <p>Embark on an unforgettable journey in Survival Together, where cooperation and strategy are key to staying alive. Team up with friends or join forces with other survivors in this immersive multiplayer survival experience that challenges your resourcefulness and tests your ability to work together in a vast, unforgiving world.</p>
+
+            <div class="stats-container">
+                <div class="stat-card floating">
+                    <div class="stat-number">1000+</div>
+                    <div>Unique Items</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">100+</div>
+                    <div>Survival Skills</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-number">5M+</div>
+                    <div>Daily Players</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Cooperative Survival</h3>
+                    <p>Work together with other players to gather resources, build shelters, and defend against threats. Share skills and resources to ensure everyone's survival in this challenging multiplayer environment.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Dynamic World</h3>
+                    <p>Explore a vast, ever-changing landscape filled with diverse biomes, hidden resources, and dangerous wildlife. Weather patterns and day-night cycles add to the survival challenge.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Crafting System</h3>
+                    <p>Master an extensive crafting system to create tools, weapons, and structures. Discover rare recipes and combine resources to craft advanced items essential for survival.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Why Play Survival Together?</h2>
+            <p>Survival Together offers a unique multiplayer survival experience that emphasizes cooperation and teamwork. Whether you're a seasoned survival game veteran or new to the genre, our game provides endless opportunities for adventure and collaboration.</p>
+            
+            <h3>Advanced Gameplay Mechanics</h3>
+            <p>Experience sophisticated survival mechanics that go beyond basic resource gathering. Manage hunger, thirst, temperature, and fatigue while coordinating with your team to build and defend your settlement.</p>
+
+            <h3>Community Features</h3>
+            <p>Join a thriving community of survivors. Form alliances, trade resources, and work together to overcome challenges. The game's social features make it easy to find teammates and build lasting friendships.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Survival Tips</h2>
+            <p>Master the art of survival with these essential strategies:</p>
+            <ul>
+                <li>Establish a base camp in a defensible location with access to resources</li>
+                <li>Coordinate with teammates to divide tasks and maximize efficiency</li>
+                <li>Learn to read weather patterns and prepare for environmental challenges</li>
+                <li>Develop a sustainable food and water supply system</li>
+                <li>Practice efficient resource management and storage</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>Join the Adventure</h2>
+            <p>Become part of our growing community of survivors. Share your experiences, discover new strategies, and make friends along the way. With regular updates adding new features and challenges, the adventure never ends in Survival Together.</p>
+        </section>
+    </main>
+
+    <footer class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="About.html">About</a>
+                    <a href="Privacy.html">Privacy Policy</a>
+                    <a href="Policy.html">Terms of Use</a>
+                    <a href="sitemap.xml">Sitemap</a>
+                    <a href="newgame.html">New Games</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Unblocked Games. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
