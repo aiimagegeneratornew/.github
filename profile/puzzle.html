@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our collection of puzzle games - From classic matching games to brain teasers. Challenge yourself with engaging puzzles that test your logic, strategy, and problem-solving skills.">
+    <title>Puzzle Games | Brain-Teasing Collection of Logic & Strategy Games</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #4834d4;
+            --text-color: #2d3436;
+            --bg-color: #f5f6fa;
+            --nav-bg: #2d3436;
+            --card-bg: #ffffff;
+            --gradient-1: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            --gradient-2: linear-gradient(135deg, #4834d4, #6c5ce7);
+            --shadow-sm: 0 2px 8px rgba(108, 92, 231, 0.1);
+            --shadow-md: 0 4px 16px rgba(108, 92, 231, 0.15);
+            --shadow-lg: 0 8px 24px rgba(108, 92, 231, 0.2);
+            --transition: all 0.3s ease;
+            --border-radius: 24px;
+            --card-border-radius: 20px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(108, 92, 231, 0.05) 0%, transparent 60%),
+                linear-gradient(45deg, rgba(162, 155, 254, 0.03) 0%, transparent 100%);
+            min-height: 100vh;
+        }
+
+        .nav-top {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 50% 50% / 20px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .category-section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: var(--card-border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .game-content {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .game-description {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .game-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--gradient-1);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .game-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .footer-nav {
+            background: var(--nav-bg);
+            color: white;
+            padding: 4rem 0 0;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.1);
+            color: rgba(255,255,255,0.8);
+            margin-top: 4rem;
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-top">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Puzzle Games</a>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/games.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                <li><a href="/puzzle.html"><i class="fas fa-puzzle-piece"></i> Puzzles</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <h1 class="floating">Puzzle Games</h1>
+            <p class="subtitle">Challenge Your Mind with Brain-Teasing Adventures</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="category-section">
+            <h2 class="category-title">Match-3 Puzzles</h2>
+            <div class="games-grid">
+                <article class="game-card">
+                    <img src="https://placehold.co/600x400/6c5ce7/ffffff?text=Fruit+Blocks" alt="Fruit Blocks Game" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Fruit Blocks</h3>
+                        <p class="game-description">Match colorful fruits to create delicious combinations and trigger exciting chain reactions.</p>
+                        <a href="fruit-blocks.html" class="game-link">Play Now</a>
+                    </div>
+                </article>
+                <article class="game-card">
+                    <img src="https://placehold.co/600x400/6c5ce7/ffffff?text=Candy+Match" alt="Candy Match Game" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Candy Match</h3>
+                        <p class="game-description">Connect sweet candies and create powerful combinations in this delightful puzzle game.</p>
+                        <a href="#" class="game-link">Coming Soon</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <h2 class="category-title">Logic Puzzles</h2>
+            <div class="games-grid">
+                <article class="game-card">
+                    <img src="https://placehold.co/600x400/6c5ce7/ffffff?text=Number+Logic" alt="Number Logic Game" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Number Logic</h3>
+                        <p class="game-description">Test your mathematical reasoning with challenging number puzzles.</p>
+                        <a href="#" class="game-link">Coming Soon</a>
+                    </div>
+                </article>
+                <article class="game-card">
+                    <img src="https://placehold.co/600x400/6c5ce7/ffffff?text=Pattern+Master" alt="Pattern Master Game" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Pattern Master</h3>
+                        <p class="game-description">Solve complex pattern recognition puzzles and train your logical thinking.</p>
+                        <a href="#" class="game-link">Coming Soon</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <h2 class="category-title">Memory Games</h2>
+            <div class="games-grid">
+                <article class="game-card">
+                    <img src="https://placehold.co/600x400/6c5ce7/ffffff?text=Memory+Cards" alt="Memory Cards Game" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Memory Cards</h3>
+                        <p class="game-description">Exercise your memory by matching pairs of cards in this classic game.</p>
+                        <a href="#" class="game-link">Coming Soon</a>
+                    </div>
+                </article>
+                <article class="game-card">
+                    <img src="https://placehold.co/600x400/6c5ce7/ffffff?text=Sequence+Master" alt="Sequence Master Game" class="game-image">
+                    <div class="game-content">
+                        <h3 class="game-title">Sequence Master</h3>
+                        <p class="game-description">Remember and repeat increasingly complex sequences to test your memory.</p>
+                        <a href="#" class="game-link">Coming Soon</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="About.html">About</a>
+                    <a href="Privacy.html">Privacy Policy</a>
+                    <a href="Terms.html">Terms of Use</a>
+                    <a href="Contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Puzzle Games. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
