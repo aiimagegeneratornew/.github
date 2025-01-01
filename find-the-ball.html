@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Find the Ball - Test your observation skills in this engaging puzzle game. Track the ball's movement, sharpen your focus, and challenge your mind with increasingly difficult levels.">
+    <title>Find the Ball | Engaging Observation Puzzle Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #2c3e50;
+            --bg-color: #ecf0f1;
+            --nav-bg: #2c3e50;
+            --card-bg: #ffffff;
+            --gradient-1: linear-gradient(135deg, #3498db, #2980b9);
+            --gradient-2: linear-gradient(135deg, #2c3e50, #3498db);
+            --shadow-sm: 0 2px 8px rgba(44, 62, 80, 0.1);
+            --shadow-md: 0 4px 16px rgba(44, 62, 80, 0.15);
+            --shadow-lg: 0 8px 24px rgba(44, 62, 80, 0.2);
+            --transition: all 0.3s ease;
+            --border-radius: 24px;
+            --card-border-radius: 20px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(52, 152, 219, 0.05) 0%, transparent 60%),
+                linear-gradient(45deg, rgba(52, 152, 219, 0.03) 0%, transparent 100%);
+            min-height: 100vh;
+        }
+
+        .nav-top {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-menu a:hover::after {
+            width: 80%;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            margin: 2rem auto;
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 16px;
+            margin: 1rem 0;
+            loading: lazy;
+            box-shadow: var(--shadow-sm);
+        }
+
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 50% 50% / 20px;
+        }
+
+        .content-section {
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(52, 152, 219, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--gradient-1);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--card-border-radius);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .control-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--gradient-1);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .footer-nav {
+            background: var(--nav-bg);
+            color: white;
+            padding: 4rem 0 0;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.1);
+            color: rgba(255,255,255,0.8);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .game-container {
+                padding: 1rem;
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-top">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Unblocked Games</a>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/games.html"><i class="fas fa-gamepad"></i> Games</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1 class="floating">Find the Ball</h1>
+            <p class="subtitle">Challenge Your Observation Skills in this Exciting Puzzle Game</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="game-container">
+            <iframe 
+                src="https://media.safekidgames.com/where-is-the-ball/index.html" 
+                class="game-frame" 
+                title="Find the Ball Game" 
+                loading="lazy" 
+                frameborder="0"
+                scrolling="no"
+                allow="fullscreen"
+                allowfullscreen="true">
+            </iframe>
+            <div class="game-controls">
+                <button class="control-button fullscreen-btn" onclick="toggleFullscreen()">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+                <button class="control-button refresh-btn" onclick="refreshGame()">
+                    <i class="fas fa-redo"></i> Restart
+                </button>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <h2>Welcome to Find the Ball</h2>
+            <p>Immerse yourself in the challenging world of Find the Ball, where keen observation and quick thinking are your keys to success. This engaging puzzle game tests your ability to track and locate the ball as it moves through increasingly complex patterns and speeds.</p>
+
+            <div class="stats-container">
+                <div class="stat-card floating">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number">10M+</div>
+                    <div class="stat-label">Global Players</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-number">4.9★</div>
+                    <div class="stat-label">Player Rating</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Unique Levels</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Progressive Difficulty</h3>
+                    <p>Start with simple ball tracking challenges and advance to more complex patterns. Each level in Find the Ball introduces new elements to test your observation skills.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Brain Training</h3>
+                    <p>Enhance your cognitive abilities as you play Find the Ball. Improve your focus, spatial awareness, and pattern recognition through engaging gameplay.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Achievement System</h3>
+                    <p>Track your progress and earn achievements as you master different levels of Find the Ball. Challenge yourself to unlock all rewards and prove your expertise.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Why Play Find the Ball?</h2>
+            <p>Find the Ball offers more than just entertainment - it's a comprehensive brain training experience that helps develop crucial cognitive skills while providing hours of engaging gameplay.</p>
+            
+            <h3>Cognitive Benefits</h3>
+            <p>Regular practice with Find the Ball can improve your visual tracking abilities, enhance hand-eye coordination, and boost overall cognitive performance. The game's progressive difficulty ensures continuous mental stimulation.</p>
+
+            <h3>Competitive Edge</h3>
+            <p>Compare your scores with players worldwide and climb the global leaderboards. Find the Ball's competitive elements add an extra layer of excitement to the cognitive challenge.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Tips for Success</h2>
+            <p>Master Find the Ball with these essential strategies:</p>
+            <ul>
+                <li>Focus on the initial position of the ball before movement begins</li>
+                <li>Track the ball's movement pattern rather than individual cups</li>
+                <li>Practice at slower speeds before attempting faster levels</li>
+                <li>Take regular breaks to maintain peak concentration</li>
+                <li>Use peripheral vision to catch subtle movements</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>Join the Challenge</h2>
+            <p>Become part of our growing community of Find the Ball enthusiasts. Share strategies, compete for high scores, and experience the thrill of mastering this engaging puzzle game. With regular updates adding new challenges and features, there's always something new to discover in Find the Ball.</p>
+        </section>
+    </main>
+
+    <footer class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="About.html">About</a>
+                    <a href="Privacy.html">Privacy Policy</a>
+                    <a href="Terms.html">Terms of Use</a>
+                    <a href="Contact.html">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Unblocked Games. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    function toggleFullscreen() {
+        const iframe = document.querySelector('.game-frame');
+        if (iframe.requestFullscreen) {
+            iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
+        } else if (iframe.msRequestFullscreen) {
+            iframe.msRequestFullscreen();
+        }
+    }
+
+    function refreshGame() {
+        const iframe = document.querySelector('.game-frame');
+        iframe.src = iframe.src;
+    }
+    </script>
+</body>
+</html> 
