@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Ludo Club - The ultimate multiplayer board game experience. Join millions of players worldwide in this classic strategy game of skill, luck, and social interaction.">
+    <title>Ludo Club | Classic Multiplayer Board Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #4834d4;
+            --secondary-color: #686de0;
+            --accent-color: #ffbe76;
+            --text-color: #2d3436;
+            --bg-color: #f7f7ff;
+            --nav-bg: #4834d4;
+            --card-bg: #ffffff;
+            --gradient-1: linear-gradient(135deg, #4834d4, #686de0);
+            --gradient-2: linear-gradient(135deg, #686de0, #4834d4);
+            --shadow-sm: 0 2px 8px rgba(72, 52, 212, 0.1);
+            --shadow-md: 0 4px 16px rgba(72, 52, 212, 0.15);
+            --shadow-lg: 0 8px 24px rgba(72, 52, 212, 0.2);
+            --transition: all 0.3s ease;
+            --border-radius: 24px;
+            --card-border-radius: 20px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(72, 52, 212, 0.05) 0%, transparent 60%),
+                linear-gradient(45deg, rgba(72, 52, 212, 0.03) 0%, transparent 100%);
+            min-height: 100vh;
+        }
+
+        .nav-top {
+            background: var(--nav-bg);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            color: white;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-menu a:hover::after {
+            width: 80%;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            margin: 2rem auto;
+            border: 1px solid rgba(72, 52, 212, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(72, 52, 212, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .game-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 16px;
+            margin: 1rem 0;
+            loading: lazy;
+            box-shadow: var(--shadow-sm);
+        }
+
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 50% 50% / 20px;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.1)" x="0" y="0" width="100" height="100"/></svg>') repeat;
+            opacity: 0.1;
+        }
+
+        .content-section {
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(72, 52, 212, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 0% 0%, rgba(72, 52, 212, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-top: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid rgba(72, 52, 212, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(72, 52, 212, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3::before {
+            content: '🎲';
+            font-size: 1.4em;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--gradient-1);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--card-border-radius);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover::before {
+            opacity: 0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(135deg, #fff, #ffbe76);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-nav {
+            background: var(--nav-bg);
+            color: white;
+            padding: 4rem 0 0;
+            margin-top: 5rem;
+            border-radius: 50% 50% 0 0 / 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 1.5px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .footer-links a::before {
+            content: '→';
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(0,0,0,0.1);
+            color: rgba(255,255,255,0.8);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .game-container {
+                padding: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .dice-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #fff 1%, transparent 1%),
+                radial-gradient(circle at 75% 75%, #fff 1%, transparent 1%);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .cta-button, .secondary-button {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .cta-button {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(255, 190, 118, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        .secondary-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-button:hover, .secondary-button:hover {
+            transform: translateY(-3px);
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .control-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--gradient-1);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .control-button:hover::before {
+            left: 100%;
+        }
+
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .highlight-section {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(72, 52, 212, 0.05) 100%);
+        }
+
+        .lead-text {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .glow {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button, .secondary-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cta-button:hover {
+            animation: none;
+            transform: translateY(-3px) scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-top">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">Unblocked Games</a>
+            <ul class="nav-menu">
+                <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/newgame.html"><i class="fas fa-gamepad"></i> Games</a></li>
+               
+            </ul>
+        </div>
+    </nav>
+
+    <header>
+        <div class="dice-pattern"></div>
+        <div class="container">
+            <h1 class="floating glow">Ludo Club</h1>
+            <p class="subtitle">Experience the Ultimate Multiplayer Board Game Adventure</p>
+            <div class="header-buttons">
+                <a href="#play-now" class="cta-button">Play Now</a>
+                <a href="#features" class="secondary-button">Learn More</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="play-now" class="game-container">
+            <iframe 
+                src="https://games.crazygames.com/en_US/ludo-king/index.html" 
+                class="game-frame" 
+                title="Ludo Club Game" 
+                loading="lazy" 
+                frameborder="0"
+                scrolling="no"
+                allow="autoplay; fullscreen; microphone; clipboard-write"
+                allowfullscreen="true"
+                webkitallowfullscreen="true" 
+                mozallowfullscreen="true"
+                msallowfullscreen="true"
+                style="position: relative; z-index: 2;">
+            </iframe>
+            <div class="game-controls">
+                <button class="control-button fullscreen-btn" onclick="toggleFullscreen()">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+                <button class="control-button refresh-btn" onclick="refreshGame()">
+                    <i class="fas fa-redo"></i> Restart
+                </button>
+            </div>
+        </div>
+
+        <section id="features" class="content-section highlight-section">
+            <h2>Welcome to Ludo Club</h2>
+            <p class="lead-text">Step into the exciting world of Ludo Club, where classic board game strategy meets modern multiplayer excitement. Join millions of players worldwide in this beautifully crafted digital version of the timeless game that has brought friends and families together for generations.</p>
+
+            <div class="stats-container">
+                <div class="stat-card floating">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-number">50M+</div>
+                    <div class="stat-label">Global Players</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="stat-number">4.8★</div>
+                    <div class="stat-label">Player Rating</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Active Games</div>
+                </div>
+                <div class="stat-card floating">
+                    <div class="stat-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Daily Tournaments</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Game Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Real-Time Multiplayer</h3>
+                    <p>Challenge friends or match with players worldwide in real-time games. Experience smooth gameplay and instant connections with players across the globe.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Multiple Game Modes</h3>
+                    <p>Choose from Classic mode, Quick Play, or Tournament modes. Each offers unique challenges and rewards to keep the game exciting and fresh.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Social Features</h3>
+                    <p>Chat with players, join clubs, and make new friends. Create private rooms for family game nights or join public matches to meet new opponents.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2>Why Play Ludo Club?</h2>
+            <p>Ludo Club offers the perfect blend of traditional board game charm and modern online gaming features. Whether you're a casual player or a competitive strategist, our game provides endless entertainment and social interaction.</p>
+            
+            <h3>Enhanced Gameplay Features</h3>
+            <p>Experience Ludo like never before with beautiful graphics, smooth animations, and intuitive controls. Our digital dice rolling system ensures fair play, while the automated piece movement keeps the game flowing smoothly.</p>
+
+            <h3>Competitive Elements</h3>
+            <p>Climb the global leaderboards, earn achievements, and collect unique tokens and dice skins. Participate in daily tournaments and special events for exclusive rewards and bragging rights.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>Strategy Tips</h2>
+            <p>Master the game with these essential Ludo strategies:</p>
+            <ul>
+                <li>Focus on getting multiple pieces out of the home base early</li>
+                <li>Create blockades to protect your pieces and hinder opponents</li>
+                <li>Calculate risk vs. reward when deciding which piece to move</li>
+                <li>Pay attention to opponent patterns and adapt your strategy</li>
+                <li>Use safe squares strategically to protect important pieces</li>
+            </ul>
+        </section>
+
+        <section class="content-section">
+            <h2>Join the Club</h2>
+            <p>Become part of our vibrant community of Ludo enthusiasts. Connect with players worldwide, participate in tournaments, and experience the joy of this classic board game in a whole new way. With regular updates adding new features and events, there's always something exciting happening in Ludo Club.</p>
+        </section>
+    </main>
+
+    <footer class="footer-nav">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="About.html">About</a>
+                    <a href="Privacy.html">Privacy Policy</a>
+                    <a href="Policy.html">Terms of Use</a>
+                    <a href="sitemap.xml">Sitemap</a>
+                    <a href="newgame.html">New Games</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Unblocked Games. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    function toggleFullscreen() {
+        const iframe = document.querySelector('.game-frame');
+        if (iframe.requestFullscreen) {
+            iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+            iframe.webkitRequestFullscreen();
+        } else if (iframe.msRequestFullscreen) {
+            iframe.msRequestFullscreen();
+        }
+    }
+
+    function refreshGame() {
+        const iframe = document.querySelector('.game-frame');
+        iframe.src = iframe.src;
+    }
+    </script>
+</body>
+</html> 
