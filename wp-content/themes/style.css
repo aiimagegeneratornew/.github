@@ -1,0 +1,92 @@
+/* Theme Name: Cookie Clicker
+ * Theme URI: https://cookieclicker.com
+ * Description: Official theme for Cookie Clicker game
+ * Version: 2.0
+ * Author: Orteil
+ */
+
+/* Reset and Base Styles */
+:root {
+  --primary-color: #8b4513;
+  --secondary-color: #d2691e;
+  --text-color: #333;
+  --background-color: #fff8dc;
+}
+
+/* Performance Optimizations */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Font Loading Optimization */
+@font-face {
+  font-family: 'GameFont';
+  src: url('fonts/game-font.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* Core Layout */
+body {
+  font-family: 'GameFont', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Container with GPU acceleration */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Game Elements */
+.cookie {
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  backface-visibility: hidden;
+}
+
+.cookie:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+}
+
+/* Loading Performance */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+/* Accessibility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+} 
