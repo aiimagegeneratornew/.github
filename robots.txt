@@ -1,0 +1,40 @@
+# robots.txt for cookie-clicker-unblocked.com
+User-agent: *
+Allow: /
+Allow: /wp-content/uploads/
+Allow: /wp-content/themes/
+
+# Prevent crawling of unnecessary resources
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /readme.html
+Disallow: /refer/
+Disallow: /*?*
+Disallow: /*.php$
+Disallow: /wp-json/
+Disallow: /search/
+Disallow: /comments/
+Disallow: /trackback/
+Disallow: /feed/
+Disallow: /page/*
+
+# Block AI crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# Allow Google AdSense bot
+User-agent: Mediapartners-Google
+Allow: /
+
+# Sitemap location
+Sitemap: https://cookie-clicker-unblocked.com/sitemap.xml 
