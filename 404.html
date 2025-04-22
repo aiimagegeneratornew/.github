@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: https://ogp.me/ns#" class="no-js" itemtype="https://schema.org/WebPage" itemscope="">
+<head>
+    <!-- Character Encoding -->
+    <meta charset="UTF-8">
+    
+    <!-- Title & Meta Description -->
+    <title>Page Not Found | Cookie Clicker Unblocked</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Oops! The page you're looking for cannot be found. Try our popular games or return to homepage to continue your gaming adventure.">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#7c3aed">
+    <meta name="msapplication-TileColor" content="#7c3aed">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #7c3aed;
+            --secondary-color: #8b5cf6;
+            --accent-color: #a78bfa;
+            --background-color: #f8fafc;
+            --text-primary: #1e1b4b;
+            --text-secondary: #334155;
+            --gradient-start: #7c3aed;
+            --gradient-end: #8b5cf6;
+            --shadow-color: rgba(124, 58, 237, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(at 40% 20%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(124, 58, 237, 0.05) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, rgba(167, 139, 250, 0.05) 0px, transparent 50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px var(--shadow-color);
+        }
+
+        .error-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            gap: 0.5rem;
+        }
+
+        .primary-button {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            box-shadow: 0 4px 6px var(--shadow-color);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px var(--shadow-color);
+        }
+
+        .secondary-button {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .secondary-button:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .popular-games {
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .games-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .game-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .error-code {
+                font-size: 6rem;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1 class="error-title">Oops! Page Not Found</h1>
+        <p class="error-message">
+            The page you're looking for seems to have disappeared into the cookie jar! 
+            Don't worry though, we've got plenty of fun games for you to explore.
+        </p>
+        
+        <div class="button-group">
+            <a href="/" class="button primary-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Return Home
+            </a>
+            <a href="/newgame.html" class="button secondary-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                Browse Games
+            </a>
+        </div>
+
+        <div class="popular-games">
+            <h2 class="games-title">Popular Games You Might Like</h2>
+            <div class="games-grid">
+                <a href="/cookie.html" class="game-card">
+                    <div class="game-title">Cookie Clicker</div>
+                    <div class="game-description">Click cookies, build an empire!</div>
+                </a>
+                <a href="/stickman-fighter.html" class="game-card">
+                    <div class="game-title">Stickman Fighter</div>
+                    <div class="game-description">Epic stick figure combat action!</div>
+                </a>
+                <a href="/chess-master.html" class="game-card">
+                    <div class="game-title">Chess Master</div>
+                    <div class="game-description">Challenge your strategic mind!</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Track 404 errors in analytics (if you have analytics set up)
+        if (typeof gtag === 'function') {
+            gtag('event', '404_error', {
+                'event_category': 'error',
+                'event_label': window.location.pathname
+            });
+        }
+    </script>
+</body>
+</html> 
